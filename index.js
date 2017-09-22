@@ -34,6 +34,9 @@ module.exports = function (blobs, url) {
       if(q.contentType)
         res.setHeader('Content-Type', q.contentType)
 
+      // prevent timeout while waiting for blob
+      res.setTimeout(0)
+
       blobs.has(hash, function (err, has) {
         if(err) return next(err)
         if(!has) return next(new Error('no blob:'+hash))
